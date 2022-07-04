@@ -16,6 +16,7 @@ Open Web Browser Google
 
 Input text Robot Framwork on Search Box
     Fill Text  ${SearchBox}   robotframework
+    Sleep  1s
 
 
 Enter to Search robotframework 
