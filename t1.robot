@@ -16,15 +16,17 @@ ${4thlinktext}  ลองเขียน System Test ด้วย Robot Framewor
 ${4thlinksuccess}  //*[@class="ix iy iz ja jb"]//*[@id="3fd2"]
 ${5thlinktext}  มาแล้ว Robot Framework 5.0 
 ${5thlinksuccess}  //*[@id="content_box"]//*[@class="title"]
+${titanic}  //span[@class="yKMVIe"]
 
 *** Keywords ***
 Open Web Browser Google 
     Open Browser  ${url}  
 
-Input text Robot Framwork on Search Box 
-    Fill Text  ${SearchBox}  ${searchtext}
+Input text 
+    [Arguments]  ${sometext}
+    Fill Text  ${SearchBox}  ${sometext}
 
-Click to Search Robotframework
+Click to Search
     Click  ${SearchButton}
     Sleep  3s
 
@@ -34,24 +36,17 @@ Click Link
     Sleep  5s
 
 Verify Search Success
-    ${text}  Get text  ${searchsuccess}
+    [Arguments]   ${textsuccess}  ${sometext}
+    ${text}  Get text  ${textsuccess}
     Log To Console  ${text}
-    Should Be Equal  ${text}  ${searchtext}
+    Should Be Equal  ${text}  ${sometext}
 
-Verify Click 3th Success 
-    ${text}  Get text  ${3thlinksuccess}
+Verify Click Success
+    [Arguments]  ${linksuccess}  ${linktext}
+    ${text}  Get text  ${linksuccess}
     Log To Console  ${text}
-    Should Be Equal  ${text}  ${3thlinktext}
+    Should Be Equal  ${text}  ${linktext}
 
-Verify Click 4th Success
-    ${text}  Get text  ${4thlinksuccess}
-    Log To Console  ${text}
-    Should Be Equal  ${text}  ${4thlinktext}
-
-Verify Click 5th Success
-    ${text}  Get text  ${5thlinksuccess}
-    Log To Console  ${text}
-    Should Be Equal  ${text}  ${5thlinktext}
 
 Input text Robot Framwork Thai language
     Fill Text  ${SearchBox}  โรบอท เฟรมเวิร์ค 
@@ -61,41 +56,58 @@ Input text Robot Framwork Thai language
 *** Test Case ***
 Search_1_Search_RobotFramwork_in_Google
     Open Web Browser Google
-    Input text Robot Framwork on Search Box 
-    Click to Search Robotframework 
-    Verify Search Success
+    Input text  Robot Framework 
+    Click to Search 
+    Verify Search Success   ${searchsuccess}  ${searchtext}  
 
 Search_2_Search_RobotFramwork_in_Google_then_Click_3th_Link
     Open Web Browser Google
-    Input text Robot Framwork on Search Box 
-    Click to Search Robotframework
-    Verify Search Success
+    Input text  Robot Framework  
+    Click to Search
+    Verify Search Success   ${searchsuccess}  ${searchtext} 
     Click Link  ${3thLink}
-    Verify Click 3th Success   
+    Verify Click Success   ${3thlinksuccess}   ${3thlinktext}  
 
 Search_3_Search_RobotFramwork_in_Google_then_Click_3th_4th_5th_Link
     Open Web Browser Google
-    Input text Robot Framwork on Search Box 
-    Click to Search Robotframework
-    Verify Search Success
+    Input text  Robot Framework  
+    Click to Search
+    Verify Search Success   ${searchsuccess}  ${searchtext} 
     Click Link  ${3thLink} 
-    Verify Click 3th Success 
+    Verify Click Success   ${3thlinksuccess}   ${3thlinktext} 
     Go Back
     Click Link  ${4thLink}
-    Verify Click 4th Success 
+    Verify Click Success   ${4thlinksuccess}   ${4thlinktext} 
     Go Back
     Click Link  ${5thLink}
-    Verify Click 5th Success 
+    Verify Click Success   ${5thlinksuccess}   ${5thlinktext}
 
-Search_4_Search_RobotFramwork_2_language_in_Google
+Search_4_Search_RobotFramwork_in_Google_then_Click_3th_5th_Link
     Open Web Browser Google
-    Input text Robot Framwork on Search Box 
-    Click to Search Robotframework
-    Verify Search Success
+    Input text  Robot Framework  
+    Click to Search
+    Verify Search Success   ${searchsuccess}  ${searchtext} 
+    Click Link  ${3thLink} 
+    Verify Click Success   ${3thlinksuccess}   ${3thlinktext} 
     Go Back
-    Input text Robot Framwork Thai language
-    Click to Search Robotframework 
-    Verify Search Success
-    Sleep  15s
+    Click Link  ${5thLink}
+    Verify Click Success   ${5thlinksuccess}   ${5thlinktext}  
+
+Search_5_Search_RobotFramwork_2_language_in_Google
+    Open Web Browser Google
+    Input text  Robot Framework 
+    Click to Search
+    Verify Search Success   ${searchsuccess}  ${searchtext} 
+    Go Back
+    Input text  โรบอท เฟรมเวิร์ค
+    Click to Search
+    Verify Search Success   ${searchsuccess}  ${searchtext} 
+
+Search_6_Search_Titanic_in_Google
+    Open Web Browser Google
+    Input text  Titanic 
+    Click to Search
+    Verify Search Success    ${titanic}   ไททานิค
+    
 
 
